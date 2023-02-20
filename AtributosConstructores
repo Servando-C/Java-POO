@@ -1,0 +1,272 @@
+import java.util.Scanner;
+class Cuadrado{
+	//atributos
+
+	private double lado;
+
+    //constructores
+
+	public Cuadrado (double l){
+		lado = l;
+	}
+	public double perim(){
+		return (lado * 4);
+	}
+	public double area (){
+		return(lado * lado);
+	}
+}
+class Triangulo{
+	//atributos
+
+	private double lado;
+	private double lado1;
+	private double ladob;
+	private double altura;
+
+    //constructores
+
+	public Triangulo (double l, double l1, double lb, double al){
+		lado = l;
+		lado1 = l1;
+		ladob = lb;
+		altura = al;
+	}
+	public double perim(){
+		return (lado+lado1+ladob);
+	}
+	public double area (){
+		return((ladob*altura)/2);
+	}
+}
+class Rectangulo{
+
+	private double lado;
+	private double lado1;
+
+	public Rectangulo (double l, double l1){
+		lado = l;
+		lado1 = l1;
+	}
+	public double perim(){
+		return ((2*lado)+(2*lado1));
+	}
+	public double area(){
+		return (lado*lado1);
+	}
+}
+class Rombo{
+	//atributos
+
+	private double lado;
+	private double dmay;
+	private double dmen;
+
+    //constructores
+
+	public Rombo (double l, double dm, double dn){
+		lado = l;
+		dmay = dm;
+		dmen = dn;
+	}
+	public double perim(){
+		return (4*lado);
+	}
+	public double area (){
+		return((dmay*dmen)/2);
+	}
+}
+class Romboide{
+
+	private double altura;
+	private double base;
+	private double lado;
+
+	public Romboide (double a, double b, double l){
+		altura = a;
+		base = b;
+		lado = l;	
+	}
+	public double perim(){
+		return ((2*base)+(2*lado));
+	}
+	public double area(){
+		return (base*altura);
+	}
+}
+class Trapecio{
+
+	private double basem;
+	private double basen;
+	private double altura;
+	private double lado;
+
+	public Trapecio(double bm, double bn, double a, double l){
+		basem = bm;
+		basen = bn;
+		altura = a;
+		lado = l;
+	}
+	public double perim (){
+		return (basem+basen+(2*lado));
+	}
+	public double area (){
+		return (((basem+basen)*altura)/2);
+	}
+}
+class Poligono{
+
+	private double nlados;
+	private double lado;
+	private double apotema;
+
+	public Poligono(double nl, double l, double ap){
+		nlados = nl;
+		lado = l;
+		apotema = ap;
+	}
+	public double perim (){
+		return (nlados*lado);
+	}
+	public double area (){
+		return (((nlados*lado)*apotema)/2);
+	}
+}
+class Circulo{
+
+	private double radio;
+
+	public Circulo(double rad){
+		radio = rad;
+	}
+	public double perim(){
+		return (3.1416*radio*2);
+	}
+	public double area(){
+		return (3.1416*radio*radio);
+	}
+}
+
+class Main {
+	public static void main(String[] args){
+		//double lado = 0;
+		String op;
+		
+
+		Scanner stdin = new Scanner(System.in);
+		op = stdin.next();
+		switch (op){
+			case "S":
+			   double lado = 0;
+			   lado = stdin.nextDouble();
+			   Cuadrado c = new Cuadrado(lado);
+			   imprimir(c.perim(), c.area());
+			   break;
+
+			case "T":
+			   double ladoT = 0;
+			   double lado1 = 0;
+			   double ladob = 0;
+			   double al = 0;
+			   ladoT = stdin.nextDouble();
+			   lado1 = stdin.nextDouble();
+			   ladob = stdin.nextDouble();
+			   al = stdin.nextDouble();
+			   Triangulo t = new Triangulo(ladoT, lado1, ladob, al);
+			   imprimir(t.perim(), t.area());
+			   break;
+
+			case "R":
+			   double base = 0;
+			   double altura = 0;
+			   base = stdin.nextDouble();
+			   altura = stdin.nextDouble();
+			   Rectangulo r = new Rectangulo(base, altura);
+			   imprimir(r.perim(), r.area());
+			   break;
+
+			case "A": 
+			   double lA = 0;
+			   double dmA = 0;
+			   double dnA = 0;
+
+			   lA = stdin.nextDouble();
+			   dmA = stdin.nextDouble();
+			   dnA = stdin.nextDouble();
+			   Rombo ro = new Rombo(lA, dmA, dnA);
+			   imprimir(ro.perim(), ro.area());
+			   break;
+
+			case "B"://ROMBOIDE
+			   double brom = 0;
+			   double arom = 0;
+			   double lrom = 0;
+
+			   brom = stdin.nextDouble();
+			   arom = stdin.nextDouble();
+			   lrom = stdin.nextDouble();
+			   Romboide rom = new Romboide(arom, brom, lrom);
+			   imprimir(rom.perim(), rom.area());
+			   break;
+			case "D"://trapecio
+			   double bmt = 0;
+			   double bnt = 0;
+			   double at = 0;
+			   double lt = 0;
+
+			   bmt = stdin.nextDouble();
+			   bnt = stdin.nextDouble();
+			   at = stdin.nextDouble();
+			   lt = stdin.nextDouble();
+
+			   Trapecio tr = new Trapecio(bmt, bnt, at, lt);
+			   imprimir(tr.perim(), tr.area());
+			   break;
+
+			case "P"://poligono
+			   double lsp = 0;
+			   double lp=0;
+			   double ap = 0;
+
+			   lsp = stdin.nextDouble();
+			   lp = stdin.nextDouble();
+			   ap = stdin.nextDouble();
+
+			   Poligono p = new Poligono(lsp, lp, ap);
+			   imprimir(p.perim(), p.area());
+			   break;
+			case "C": //circulo  
+			   double rad = 0;
+			    rad = stdin.nextDouble();
+			    Circulo cir = new Circulo(rad);
+			    imprimir(cir.perim(), cir.area());
+			    break;
+
+
+			default : System.out.println("Letra invalida");
+		}
+		stdin.close();
+	}
+	public static void imprimir(double p, double a){
+		double oa = ((a % 1)*100)-(((a % 1)*100)%1);
+		double op = ((p % 1)*100)-(((p % 1)*100)%1);
+
+			if(p % 1 == 0){
+            System.out.printf("PERIMETRO: %.0f%n", p);
+             } else if(op % 10 == 0){
+            	System.out.printf("PERIMETRO: %.1f%n", p);
+            	}else if(op % 10 > 0) {
+                System.out.println("PERIMETRO: " +red(p));
+            }
+            if(a % 1 == 0){
+            System.out.printf("AREA: %.0f", a);
+             } else if (oa % 10 == 0){
+             	System.out.printf("AREA: %.1f", a );
+            }else if (oa % 10 > 0){
+            	System.out.println("AREA: " +red(a));
+            }
+		}
+	public static double red(double x){
+		return (Math.floor(x*100))/100;
+	}
+}
