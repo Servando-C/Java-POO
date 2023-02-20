@@ -1,0 +1,95 @@
+import java.util.Scanner;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+class InvalidHexException extends Exception{
+    public InvalidHexException(){
+        super("EL FORMATO NO CORRESPONDE A UN NUMERO");
+    }
+}
+class InvalidDecException extends Exception{
+    public InvalidDecException(){
+        super("EL FORMATO NO CORRESPONDE A UN NUMERO DECIMAL");
+    }
+}
+
+class NegativeValueEnteredException extends Exception{
+    public NegativeValueEnteredException(){
+        super("LOS NUMEROS NEGATIVOS NO SON ACEPTADOS");
+    }
+}
+
+class Conversiones{
+    public int hexToDec(String hN) throws InvalidHexException, NegativeValueEnteredException, InvalidDecException{
+        if(hN.indexOf("-") == 0){
+            throw new NegativeValueEnteredException();
+        }
+        else if (hN.contains("0X")){
+            hN = hN.replace("0X", "");
+            int decimal = Integer.parseInt(hN.toLowerCase(), 16);
+            return decimal;
+        }else if(hN.matches("^[A-Za-z]*$")){
+            throw new InvalidHexException();
+        }
+        else{
+            throw new InvalidDecException();
+        }
+    }
+    public String decToHex(int dN) throws NegativeValueEnteredException {
+        if(dN < 0){
+            throw new NegativeValueEnteredException();
+        }
+        String hexadecimal = Integer.toHexString(dN);
+        hexadecimal = "0X"+hexadecimal.toUpperCase();
+        return hexadecimal;
+    }
+}
+
+public class Main{
+public static void main(String[] args) {
+    Conversiones n = new Conversiones();
+
+    try {
+        Scanner op = new Scanner(System.in);
+        String fuente = op.nextLine();
+        File f = new File(fuente);
+        Scanner stdin = new Scanner(f);
+        if (stdin.hasNextDouble()){
+            try {
+                Integer numInt = null;
+                while (stdin.hasNextLine()){
+                    numInt = stdin.nextInt();
+                    System.out.println(n.decToHex(numInt));
+        }
+            }
+            catch (NumberFormatException e) {
+                System.out.println("EL FORMATO NO CORRESPONDE A UN NUMERO DECIMAL");
+            }
+            catch (NegativeValueEnteredException e){
+                System.out.println(e.getMessage());
+            }
+    
+        }else{
+            try {
+                String numHex;
+                while (stdin.hasNextLine()){
+                    numHex = stdin.nextLine();
+                    System.out.println(n.hexToDec(numHex));}
+                }
+            catch(NumberFormatException e){
+                System.out.println("EL FORMATO NO CORRESPONDE A UN NUMERO HEXADECIMAL");
+            }
+            catch(InvalidHexException e){
+                System.out.println(e.getMessage());
+            }
+            catch(InvalidDecException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        op.close();
+        stdin.close();
+    } catch (Exception e){
+    }
+}
+}
