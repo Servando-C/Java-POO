@@ -1,0 +1,80 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Iterator;
+
+class Figura{
+	private Integer numero;
+	private String nombre;
+
+	public Figura (String n){
+		//numero = i;
+		nombre = n;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public Integer getNumero() {
+		return numero;
+	}
+}
+class Main {
+  public static void main(String[] args) {
+    ArrayList <Figura> figuras = new ArrayList <Figura> ();
+    String dato;
+    int nC = 0;
+    int nT = 0;
+    int nR = 0;
+    int nRom = 0;
+    int nRomb = 0;
+    int nTr = 0;
+    int nPr = 0;
+    int nCir = 0;  
+  	
+  	Scanner stdin = new Scanner(System.in);
+  	while(stdin.hasNextLine()) {
+        dato = stdin.nextLine();
+        Figura figura = new Figura(dato);
+        figuras.add(figura);
+	}
+    stdin.close();
+
+	Iterator<Figura> iterat = figuras.iterator();
+    while (iterat.hasNext()){
+    	Figura figura = iterat.next();
+
+    	if(figura.getNombre().equals("CIRCULO")){
+    		nCir += 1;
+    	}
+    	else if(figura.getNombre().equals("TRIANGULO")){
+    		nT += 1;
+    	}
+    	else if(figura.getNombre().equals("CUADRADO")){
+    		nC += 1;
+    	}
+    	else if(figura.getNombre().equals("TRAPECIO")){
+    		nTr += 1;
+    	}
+    	else if(figura.getNombre().equals("RECTANGULO")){
+    		nR += 1;
+    	}
+    	else if(figura.getNombre().equals("ROMBO")){
+    		nRom += 1;
+    	}
+    	else if(figura.getNombre().equals("ROMBOIDE")){
+    		nRomb += 1;
+    	}
+    	else if(figura.getNombre().equals("POLIGONO REGULAR")){
+    		nPr += 1;
+    	}
+    }
+  System.out.println("Triangulo: "+nT);
+  System.out.println("Cuadrado: "+nC);
+  System.out.println("Rectangulo: "+nR);
+  System.out.println("Rombo: "+nRom);
+  System.out.println("Romboide: "+nRomb);
+  System.out.println("Trapecio: "+nTr);
+  System.out.println("Poligono regular: "+nPr);
+  System.out.println("Circulo: "+nCir);
+}
+}
