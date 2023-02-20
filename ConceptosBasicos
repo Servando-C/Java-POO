@@ -1,0 +1,85 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+class Polynomial{
+	private double deg;
+	private double coef;
+
+	public Polynomial(){
+	}
+	public Polynomial(double g, double c){
+		deg = g;
+		coef = c;
+	}
+	public Double getDeg() {
+		return deg;
+	}
+	public Double getCoef() {
+		return coef;
+	}
+	/*public Integer evaluate(){
+	}
+	public double add(double a, double b){
+
+	}
+	/*public Integer substract(){
+	}
+	public Integer toString(){
+	}*/
+}
+class Main{
+	public static void main(String[] args) {
+		//double d = 0;
+		double c = 0;
+		ArrayList <Polynomial> sum = new ArrayList <Polynomial> ();
+		ArrayList <Polynomial> res = new ArrayList <Polynomial> ();
+
+		Scanner stdin = new Scanner(System.in);
+		double g = stdin.nextDouble();
+		ArrayList <Polynomial> pol = new ArrayList <Polynomial> ((int)g+1);
+		for (int i = (int)g;i >= 0;i--) {
+			c = stdin.nextDouble();
+			Polynomial p = new Polynomial(i, c);
+			pol.add(i, p);
+		}
+		/*g = stdin.nextDouble();
+		ArrayList <Polynomial> pol2 = new ArrayList <Polynomial> ((int)g+1);
+		for (int i = (int)g;i >= 0;i--){
+			c = stdin.nextDouble();
+			Polynomial p = new Polynomial(i, c);
+			pol2.add(i, p);
+		}
+
+		/*for (int i = (int);i >= 0;i--){
+			c = stdin.nextDouble();
+			Polynomial p = new Polynomial(i, c);
+			pol2.add(p);
+		}
+
+		Iterator<Polynomial> iterat = pol.iterator();
+		Iterator<Polynomial> it = pol2.iterator();
+        while (iterat.hasNext() || it.hasNext() ){
+			Polynomial pl1 = it.next();
+    	    Polynomial pl = iterat.next();
+			//int s = 0;
+			if (pl.getDeg() == pl1.getDeg()) {
+				Polynomial s = new Polynomial(pl.getDeg(), pl.getCoef()+pl1.getCoef());
+			}
+			suma.add()
+		    System.out.println("grado: "+pl.getDeg());
+		    System.out.println("coeficiente : "+pl.getCoef());    	
+        }*/
+		Iterator<Polynomial> iterat = pol.iterator();
+		//Iterator<Polynomial> it = pol2.iterator();
+        while (iterat.hasNext()){
+			Polynomial pl = iterat.next();
+		    System.out.println("grado: "+pl.getDeg());
+		    System.out.println("coeficiente : "+pl.getCoef());    	
+        }
+        stdin.close();
+
+		/*ArrayList <Polynomial> pol2 = new ArrayList <Polynomial> ();
+		Scanner stdin = new Scanner(System.in);*/
+	}
+}
