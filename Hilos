@@ -1,0 +1,134 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class suma extends Thread{
+    private final int[][] a;
+    private final int[][] b;
+    private final int[][] r;
+    private  int inif;
+    private final int t;
+    private  int finf;
+    private  int inic;
+    private  int finc;
+
+    public suma(int[][] a, int[][] b, int[][] r, int f1, int f2, int c1, int c2, int t){
+        this.a = a;
+        this.b = b;
+        this.r = r;
+        this.inif = f1;
+        this.finf = f2;
+        this.inic = c1;
+        this.finc = c2;
+        this.t = t;
+    }
+    public void run(){
+        for(int i = inif; i <= finf; i)
+            for(int j = inic; j <= finc; j++){
+                r[i][j] = a[i][j] +b[i][j];
+            }
+        }
+    }
+}
+class matr{
+    private int[][] n;
+    private int t;
+    private int dt;
+    private int dl;
+    private int l;
+
+    public int[][] getN(){
+        return n;
+    }
+    public int getTam(){
+        return t;
+    }
+    public int getLar(){
+        return l;
+    }
+    public int getDiv(){
+        return dt;
+    }
+    public int getDivLar(){
+        return dl;
+    }
+    
+    public void add(ArrayList<String[]> a){
+        this.t = (int)a.size();
+        this.l = a.get(0).length;
+        if(t % 2 == 0){
+            this.dt = (t-1)/2;
+        }else{
+            this.dt = (t-2)/2;
+        }
+        if(l % 2 == 0){
+            this.dl = (l-1)/2;
+        }else{
+            this.dl = (l-2)/2;
+        }
+        
+        this.n = new int [t][l];
+        for (int i = 0;i < t;i++){
+            int j = 0;
+            for(String s : a.get(i)){
+                this.n[i][j] = Integer.valueOf(s);
+                j++;
+            }
+            
+        }
+    }
+}
+
+class Main{
+    public static void main(String[] args) throws InterruptedException{
+        matr a = new matr();
+        matr b = new matr();
+        String el;
+        ArrayList <String[]> arr = new ArrayList<String[]>();
+        ArrayList <String[]> arr2 = new ArrayList<String[]>();
+        
+        Scanner stdin = new Scanner(System.in);
+        while(stdin.hasNext()){
+        el = stdin.nextLine();
+        if(el.equals("")){
+            break;
+        }
+        arr.add(el.split(" "));
+        }
+        //a.add(arr);
+        //arr.clear();
+        while(stdin.hasNext()){
+            el = stdin.nextLine();
+            if(el.equals("")){
+                break;
+            }
+            arr2.add(el.split(" "));
+        }
+        //b.add(arr);
+        stdin.close();
+        
+        a.add(arr);
+        b.add(arr2);
+        int ta = a.getTam();
+        int la = a.getLar();
+            suma[] hilos = new suma[4];
+            int[][] res = new int[a.getTam()][a.getLar()];
+            hilos[0] = new suma(a.getN(), b.getN(), res, 0, a.getDiv(), 0, a.getDivLar(), ta);
+            hilos[1] = new suma(a.getN(), b.getN(), res, 0, a.getDiv(), a.getDivLar()+1, la-1, ta);
+            hilos[2] = new suma(a.getN(), b.getN(), res, a.getDiv()+1, ta-1, 0, a.getDivLar(), ta);
+            hilos[3] = new suma(a.getN(), b.getN(), res, a.getDiv()+1, ta-1, a.getDivLar()+1, la-1, ta);
+
+            hilos[0].start();
+            hilos[1].start();
+            hilos[2].start();
+            hilos[3].start();
+
+            for ( int c = 0; c < 4; c++ )
+                hilos[c].join();
+            
+            for ( int i = 0; i < res.length; i++ ){
+                for ( int j = 0; j < res[i].length; j++ )
+                    System.out.print(res[i][j] + " " );
+                System.out.println("");
+            }
+    }
+}
