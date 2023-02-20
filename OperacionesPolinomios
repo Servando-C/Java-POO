@@ -1,0 +1,197 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+class Polynomial{
+	private Integer deg;
+	private ArrayList<Double> coeff;
+
+	public Polynomial(){
+		this.deg = 0;
+		this.coeff = new ArrayList<Double>();
+	}
+	public Polynomial(ArrayList<Double> pol, int g){
+		this.deg = g;
+		coeff = new ArrayList<Double>();
+		for (int i = g;i >= 0;i--){
+			this.coeff.add(pol.get(i));
+		}
+	}
+	public double evaluate(double a){
+		double r = 0;
+		for(int i=0;i <= this.deg;i++){
+			r = r + this.coeff.get(i)*Math.pow(a,i);
+		}
+		return r;
+	}
+	public Polynomial add(Polynomial a){
+		ArrayList<Double> rArr = new ArrayList<Double>();
+		if(a.deg == this.deg){
+			for(int i=a.deg;i >=0;i--){
+				rArr.add((a.coeff.get(i)+this.coeff.get(i)));
+			}
+		}
+		if(a.deg < this.deg){
+			for(int i=this.deg;i >=0;i--){
+				if(a.deg < i){
+					rArr.add(this.coeff.get(i));
+				}else{
+					rArr.add((a.coeff.get(i)+this.coeff.get(i)));
+				}
+			}
+		}
+		if(a.deg > this.deg){
+			for(int i=a.deg;i >=0;i--){
+				if(this.deg < i){
+					rArr.add(a.coeff.get(i));
+				}else{
+					rArr.add((a.coeff.get(i)+this.coeff.get(i)));
+				}
+			}
+		}
+		Polynomial rPol = new Polynomial(rArr, a.deg);
+		return rPol;
+	}
+	public void evEs(double es){
+		double aux = 0;
+		for(int i=0; i<=this.deg; i++){
+			aux = this.coeff.get(i)*es;
+			this.coeff.set(i, aux);
+		}
+	}
+	public Polynomial substract(Polynomial a){
+		ArrayList<Double> rArr = new ArrayList<Double>();
+		if(a.deg == this.deg){
+			for(int i=a.deg;i >=0;i--){
+				rArr.add((this.coeff.get(i)-a.coeff.get(i)));
+			}
+		}
+		if(a.deg < this.deg){
+			for(int i=this.deg;i >=0;i--){
+				if(a.deg < i){
+					rArr.add(this.coeff.get(i));
+				}else{
+					rArr.add((this.coeff.get(i)-a.coeff.get(i)));
+				}
+			}
+		}
+		if(a.deg > this.deg){
+			for(int i=a.deg;i >=0;i--){
+				if(this.deg < i){
+					rArr.add(0-a.coeff.get(i));
+				}else{
+					rArr.add((this.coeff.get(i)-a.coeff.get(i)));
+				}
+			}
+		}
+		Polynomial rPol = new Polynomial(rArr, a.deg);
+		return rPol;
+	}
+	public String toString(){
+		ArrayList <String> pM = new ArrayList<String>();
+		String aux;
+		while(this.coeff.get(this.deg) == 0.0){
+			this.coeff.remove(this.deg);
+			this.deg = this.deg -1;
+		}
+		if(this.deg == 0){
+			aux = String.format("%.0f", this.coeff.get(this.deg));
+			pM.add(aux);
+		}else if(this.deg == 1){
+			aux = String.format("%.0f", this.coeff.get(this.deg))+"x";
+			pM.add(aux);
+		}else if(this.deg > 1){
+			aux = String.format("%.0f", this.coeff.get(this.deg))+"x^"+this.deg;
+			pM.add(aux);
+		}
+		for(int i = this.deg-1; i >= 0;i--){
+            if(i == 0){
+				if(this.coeff.get(i) <= -1){
+					aux = String.format("%.0f", this.coeff.get(i));
+				}else{
+					aux = "+"+String.format("%.0f", this.coeff.get(i));
+				}
+				pM.add(aux);
+			}
+			if(i == 1){
+				if(this.coeff.get(i) < 0){
+					aux = String.format("%.0f", this.coeff.get(i))+"x";
+				}else{
+					if(this.coeff.get(i) == 1.0){
+						aux = "+x";
+					}else{
+						aux = "+"+String.format("%.0f", this.coeff.get(i))+"x";
+					}
+				}
+				pM.add(aux);
+			}
+			if(i > 1){
+				if(this.coeff.get(i) < 0){
+					aux = String.format("%.0f", this.coeff.get(i))+"x^"+i;
+				}else{
+					aux = "+"+String.format("%.0f", this.coeff.get(i))+"x^"+i;
+				}
+				pM.add(aux);
+			}
+		}
+		String str = "";
+		for (String i : pM) {
+			str+= i+"";
+		}
+		return str;
+	}
+	//la resta y suma van a devolver otro polinomio
+	// el metodo evaluar solo va tomando elemento a elemento y lo evalua
+}
+public class Main {
+    public static void main(String[] args){
+        double c = 0;
+
+		ArrayList<Polynomial> listPol = new ArrayList<Polynomial>();//lista de polinomios
+
+        Scanner stdin = new Scanner(System.in);
+		int n = stdin.nextInt();
+
+		ArrayList <Double> pol = new ArrayList <Double>(n+1);
+
+		for (int i = 0;i <= n;i++){
+			c = stdin.nextDouble();
+			pol.add(c);
+		}
+
+		Polynomial P1 = new Polynomial(pol, n);
+
+		n = stdin.nextInt();
+		pol.clear();
+		pol = new ArrayList <Double>(n+1);
+		for (int i = 0;i <= n;i++){
+			c = stdin.nextDouble();
+			pol.add(c);
+		}
+		
+		Polynomial P2 = new Polynomial(pol, n);
+
+		double x = stdin.nextDouble();//valor de x
+		double es = 2;
+        stdin.close();
+
+		listPol.add(P1);
+		listPol.add(P2);
+
+		Polynomial sum = P1.add(P2); //polinomio suma
+		Polynomial res = P1.substract(P2);//polinomio resta
+
+		System.out.println(sum.toString());//imprimir forma polinomio suma
+		System.out.printf("%.0f%n",sum.evaluate(x));//evaluacion en x de la suma
+
+		System.out.println(res.toString());//imprimir forma polinomio suma
+		System.out.printf("%.0f",res.evaluate(x));//evaluacion en x de la suma
+
+		/*System.out.println("Polinomios con escalar = 2:");
+
+		sum.evEs(es);
+		res.evEs(es);
+		System.out.println(sum.toString());
+		System.out.println(res.toString());*/
+
+    }
+}
