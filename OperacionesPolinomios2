@@ -1,0 +1,56 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import src.Polynomial;
+
+public class Main {
+    public static void main(String[] args){
+        double c = 0;
+
+		ArrayList<Polynomial> listPol = new ArrayList<Polynomial>();//lista de polinomios
+
+        Scanner stdin = new Scanner(System.in);
+		int n = stdin.nextInt();
+
+		ArrayList <Double> pol = new ArrayList <Double>(n+1);
+
+		for (int i = 0;i <= n;i++){
+			c = stdin.nextDouble();
+			pol.add(c);
+		}
+
+		Polynomial P1 = new Polynomial(pol, n);
+
+		n = stdin.nextInt();
+		pol.clear();
+		pol = new ArrayList <Double>(n+1);
+		for (int i = 0;i <= n;i++){
+			c = stdin.nextDouble();
+			pol.add(c);
+		}//
+		
+		Polynomial P2 = new Polynomial(pol, n);
+
+		double x = stdin.nextDouble();//valor de x
+		double es = stdin.nextDouble();
+        stdin.close();
+
+		listPol.add(P1);
+		listPol.add(P2);
+
+		Polynomial sum = P1.add(P2);//polinomio suma
+		Polynomial res = P1.substract(P2);//polinomio resta
+
+        listPol.add(sum);
+        listPol.add(res);
+
+        listPol.add(P1.evEs(es));
+        listPol.add(P2.evEs(es));
+
+        for(Polynomial j : listPol){
+        	System.out.println(j.toString());
+        }
+
+		System.out.printf("%.0f%n",sum.evaluate(x));//evaluacion en x de la suma
+		System.out.printf("%.0f",res.evaluate(x));//evaluacion en x de la suma
+    }
+}
