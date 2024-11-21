@@ -1,2 +1,2 @@
 # Object-Oriented Programming in Java
-This repository provides a complete introduction to Object-Oriented Programming (OOP) concepts using Java. It is designed for students, developers, and anyone interested in mastering OOP principles through hands-on examples and well-structured exercises.
+This repository contains all the projects and practical exercises developed for the Object-Oriented Programming course. The work here showcases a comprehensive application of OOP principles in Java, combining theoretical understanding with real-world programming scenarios.
